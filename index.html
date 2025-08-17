@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hagop Alajajian - Portfolio</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        @keyframes pulse-slow {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 0.4; }
+        }
+        
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .animate-pulse-slow {
+            animation: pulse-slow 4s ease-in-out infinite;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6, #1e40af);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .nav-glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-8px);
+        }
+        
+        .scroll-indicator {
+            position: relative;
+            width: 24px;
+            height: 40px;
+            border: 2px solid #94a3b8;
+            border-radius: 20px;
+        }
+        
+        .scroll-indicator::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 12px;
+            background: #94a3b8;
+            border-radius: 2px;
+            animation: scroll-pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes scroll-pulse {
+            0%, 100% { opacity: 1; transform: translateX(-50%) translateY(0); }
+            50% { opacity: 0.5; transform: translateX(-50%) translateY(8px); }
+        }
+        
+        .form-input {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid #d1d5db;
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus {
+            background: rgba(255, 255, 255, 0.95);
+            border-color: #3b82f6;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+        }
+        
+        .skill-tag {
+            background: rgba(239, 246, 255, 0.8);
+            color: #1e40af;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-slate-50 via-white to-blue-50 overflow-x-hidden">
+    <!-- Interactive Background -->
+    <canvas id="background-canvas" class="fixed inset-0 w-full h-full z-0 opacity-50"></canvas>
+    
+    <!-- Floating gradient orbs -->
+    <div class="fixed top-20 left-1/4 w-96 h-96 bg-gradient-to-r from-blue-200 to-purple-200 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse-slow"></div>
+    <div class="fixed bottom-20 right-1/4 w-80 h-80 bg-gradient-to-r from-purple-200 to-pink-200 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse-slow"></div>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 nav-glass transform -translate-y-full transition-transform duration-500">
+        <div class="max-w-6xl mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <img src="images/logo.png" alt="Hagop Alajajian" class="h-16 w-auto" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <div class="text-2xl font-bold gradient-text hidden">
+                        Hagop Alajajian
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="nav-link relative px-4 py-2 text-sm font-medium text-slate-700 hover:text-blue-600 transition-colors duration-200">
+                        Home
+                        <span class="nav-indicator absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 transform scale-x-0 transition-transform duration-300"></span>
+                    </a>
+                    <a href="#about" class="nav-link relative px-4 py-2 text-sm font-medium text-slate-700 hover:text-blue-600 transition-colors duration-200">
+                        About
+                        <span class="nav-indicator absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 transform scale-x-0 transition-transform duration-300"></span>
+                    </a>
+                    <a href="#projects" class="nav-link relative px-4 py-2 text-sm font-medium text-slate-700 hover:text-blue-600 transition-colors duration-200">
+                        Projects
+                        <span class="nav-indicator absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 transform scale-x-0 transition-transform duration-300"></span>
+                    </a>
+                    <a href="#contact" class="nav-link relative px-4 py-2 text-sm font-medium text-slate-700 hover:text-blue-600 transition-colors duration-200">
+                        Contact
+                        <span class="nav-indicator absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 transform scale-x-0 transition-transform duration-300"></span>
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden p-2 text-slate-700 hover:text-blue-600 transition-colors duration-200">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+
+            <!-- Mobile Navigation -->
+            <div id="mobile-menu" class="md:hidden mt-4 py-4 border-t border-white/20 hidden">
+                <a href="#home" class="mobile-nav-link flex items-center space-x-3 w-full px-4 py-3 text-left transition-colors duration-200 text-slate-700 hover:text-blue-600 hover:bg-blue-50/30">
+                    <i class="fas fa-home"></i>
+                    <span class="font-medium">Home</span>
+                </a>
+                <a href="#about" class="mobile-nav-link flex items-center space-x-3 w-full px-4 py-3 text-left transition-colors duration-200 text-slate-700 hover:text-blue-600 hover:bg-blue-50/30">
+                    <i class="fas fa-user"></i>
+                    <span class="font-medium">About</span>
+                </a>
+                <a href="#projects" class="mobile-nav-link flex items-center space-x-3 w-full px-4 py-3 text-left transition-colors duration-200 text-slate-700 hover:text-blue-600 hover:bg-blue-50/30">
+                    <i class="fas fa-briefcase"></i>
+                    <span class="font-medium">Projects</span>
+                </a>
+                <a href="#contact" class="mobile-nav-link flex items-center space-x-3 w-full px-4 py-3 text-left transition-colors duration-200 text-slate-700 hover:text-blue-600 hover:bg-blue-50/30">
+                    <i class="fas fa-envelope"></i>
+                    <span class="font-medium">Contact</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="relative z-10">
+        <!-- Hero Section -->
+        <section id="home" class="relative min-h-screen flex items-center justify-center px-6">
+            <div class="max-w-4xl mx-auto text-center">
+                <div class="opacity-0 transform translate-y-12 animation-delay-0" data-animate="fadeInUp">
+                    <div class="inline-flex items-center gap-2 bg-blue-50/80 glass border border-blue-200/50 rounded-full px-4 py-2 mb-6">
+                        <i class="fas fa-sparkles text-blue-600"></i>
+                        <span class="text-sm font-medium text-blue-800">Computer Science and Finance Student</span>
+                    </div>
+                    
+                    <h1 class="text-5xl md:text-7xl font-bold text-slate-900 mb-6 leading-tight">
+                        Hi, I'm 
+                        <span class="gradient-text">Hagop</span><br>
+                        Alajajian
+                    </h1>
+                    
+                    <p class="text-xl md:text-2xl text-slate-600 max-w-2xl mx-auto leading-relaxed mb-8">
+                        From metro Detroit, Michigan. Passionate about applying cutting-edge technology and financial analysis to solve complex problems in quantitative trading and software engineering.
+                    </p>
+                </div>
+
+                <div class="opacity-0 transform translate-y-12 animation-delay-300" data-animate="fadeInUp">
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                        <button onclick="scrollToSection('contact')" class="group bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-full font-semibold hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 transform hover:-translate-y-1">
+                            Get In Touch
+                            <span class="ml-2 group-hover:translate-x-1 transition-transform duration-200 inline-block">
+                                →
+                            </span>
+                        </button>
+                        
+                        <button onclick="scrollToSection('about')" class="flex items-center gap-2 text-slate-700 hover:text-blue-600 font-semibold transition-colors duration-200">
+                            Learn More
+                            <i class="fas fa-arrow-down animate-bounce"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scroll indicator -->
+            <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 opacity-0 animation-delay-1500" data-animate="fadeIn">
+                <div class="scroll-indicator"></div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="relative py-20 px-6">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-16 opacity-0 transform translate-y-12" data-animate="fadeInUp">
+                    <h2 class="text-4xl md:text-6xl font-bold text-slate-900 mb-6">
+                        About Me
+                    </h2>
+                    <p class="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
+                        Driven by a passion for technology and finance, I leverage my skills in software engineering and machine learning to build innovative solutions and extract actionable insights from complex data.
+                    </p>
+                </div>
+
+                <div class="glass rounded-2xl p-4 sm:p-8 shadow-xl opacity-0 transform translate-y-12 animation-delay-200" data-animate="fadeInUp">
+                    <!-- Tab Navigation -->
+                    <div class="flex flex-wrap gap-2 sm:gap-4 mb-8">
+                        <button class="about-tab flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-3 rounded-lg font-semibold transition-all duration-300 text-sm sm:text-base bg-blue-600 text-white shadow-lg shadow-blue-500/25" data-tab="experience">
+                            <i class="fas fa-briefcase"></i>
+                            Experience
+                        </button>
+                        <button class="about-tab flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-3 rounded-lg font-semibold transition-all duration-300 text-sm sm:text-base bg-white/50 text-slate-700 hover:bg-blue-50" data-tab="skills">
+                            <i class="fas fa-microchip"></i>
+                            Skills
+                        </button>
+                        <button class="about-tab flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-3 rounded-lg font-semibold transition-all duration-300 text-sm sm:text-base bg-white/50 text-slate-700 hover:bg-blue-50" data-tab="interests">
+                            <i class="fas fa-heart"></i>
+                            Interests
+                        </button>
+                        <button class="about-tab flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-3 rounded-lg font-semibold transition-all duration-300 text-sm sm:text-base bg-white/50 text-slate-700 hover:bg-blue-50" data-tab="education">
+                            <i class="fas fa-graduation-cap"></i>
+                            Education
+                        </button>
+                        <button class="about-tab flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-3 rounded-lg font-semibold transition-all duration-300 text-sm sm:text-base bg-white/50 text-slate-700 hover:bg-blue-50" data-tab="awards">
+                            <i class="fas fa-award"></i>
+                            Awards
+                        </button>
+                    </div>
+
+                    <!-- Tab Content -->
+                    <div id="tab-content" class="min-h-[300px]">
+                        <!-- Experience Content -->
+                        <div id="experience-content" class="tab-content">
+                            <div class="space-y-6">
+                                <div class="border-l-4 border-blue-500 pl-6 py-2 opacity-0 transform translate-y-6" data-animate="slideInLeft">
+                                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2">
+                                        <div>
+                                            <h4 class="font-bold text-lg text-slate-800">AI Technology Consultant & Financial Analyst Intern</h4>
+                                            <p class="text-blue-600 font-semibold">Armenco Capital</p>
+                                            <p class="text-sm text-slate-500">Glendale, USA</p>
+                                        </div>
+                                        <span class="text-sm font-medium text-slate-500 bg-slate-100 px-3 py-1 rounded-full whitespace-nowrap">07/25 – 11/25</span>
+                                    </div>
+                                </div>
+                                <div class="border-l-4 border-blue-500 pl-6 py-2 opacity-0 transform translate-y-6 animation-delay-100" data-animate="slideInLeft">
+                                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2">
+                                        <div>
+                                            <h4 class="font-bold text-lg text-slate-800">Automation Engineer and Data Analyst</h4>
+                                            <p class="text-blue-600 font-semibold">Foundation for Armenian Science and Technology</p>
+                                            <p class="text-sm text-slate-500">Yerevan, Armenia</p>
+                                        </div>
+                                        <span class="text-sm font-medium text-slate-500 bg-slate-100 px-3 py-1 rounded-full whitespace-nowrap">06/24 – 08/24</span>
+                                    </div>
+                                </div>
+                                <div class="border-l-4 border-blue-500 pl-6 py-2 opacity-0 transform translate-y-6 animation-delay-200" data-animate="slideInLeft">
+                                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2">
+                                        <div>
+                                            <h4 class="font-bold text-lg text-slate-800">Student Shadow, Conversational AI</h4>
+                                            <p class="text-blue-600 font-semibold">Nvidia</p>
+                                            <p class="text-sm text-slate-500">Yerevan, Armenia</p>
+                                        </div>
+                                        <span class="text-sm font-medium text-slate-500 bg-slate-100 px-3 py-1 rounded-full whitespace-nowrap">07/24</span>
+                                    </div>
+                                </div>
+                                <div class="border-l-4 border-blue-500 pl-6 py-2 opacity-0 transform translate-y-6 animation-delay-300" data-animate="slideInLeft">
+                                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2">
+                                        <div>
+                                            <h4 class="font-bold text-lg text-slate-800">Co-Founder</h4>
+                                            <p class="text-blue-600 font-semibold">Atlas</p>
+                                            <p class="text-sm text-slate-500">Remote</p>
+                                        </div>
+                                        <span class="text-sm font-medium text-slate-500 bg-slate-100 px-3 py-1 rounded-full whitespace-nowrap">09/23 – 04/24</span>
+                                    </div>
+                                </div>
+                                <div class="border-l-4 border-blue-500 pl-6 py-2 opacity-0 transform translate-y-6 animation-delay-400" data-animate="slideInLeft">
+                                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2">
+                                        <div>
+                                            <h4 class="font-bold text-lg text-slate-800">Intern</h4>
+                                            <p class="text-blue-600 font-semibold">Union Atlantic Ventures</p>
+                                            <p class="text-sm text-slate-500">Princeton, New Jersey</p>
+                                        </div>
+                                        <span class="text-sm font-medium text-slate-500 bg-slate-100 px-3 py-1 rounded-full whitespace-nowrap">12/23 – 02/24</span>
+                                    </div>
+                                </div>
+                                <div class="border-l-4 border-blue-500 pl-6 py-2 opacity-0 transform translate-y-6 animation-delay-500" data-animate="slideInLeft">
+                                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2">
+                                        <div>
+                                            <h4 class="font-bold text-lg text-slate-800">Principal Investments & AI Engineer Intern</h4>
+                                            <p class="text-blue-600 font-semibold">Banca de Inversión Bancolombia</p>
+                                            <p class="text-sm text-slate-500">Medellin, Colombia</p>
+                                        </div>
+                                        <span class="text-sm font-medium text-slate-500 bg-slate-100 px-3 py-1 rounded-full whitespace-nowrap">06/23 – 08/23</span>
+                                    </div>
+                                </div>
+                                <div class="border-l-4 border-blue-500 pl-6 py-2 opacity-0 transform translate-y-6 animation-delay-600" data-animate="slideInLeft">
+                                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2">
+                                        <div>
+                                            <h4 class="font-bold text-lg text-slate-800">AI Researcher Fellowship</h4>
+                                            <p class="text-blue-600 font-semibold">Lowtech AI</p>
+                                            <p class="text-sm text-slate-500">Remote</p>
+                                        </div>
+                                        <span class="text-sm font-medium text-slate-500 bg-slate-100 px-3 py-1 rounded-full whitespace-nowrap">06/23 – 08/23</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Skills Content -->
+                        <div id="skills-content" class="tab-content hidden">
+                            <div class="space-y-8">
+                                <div class="opacity-0 transform translate-y-6" data-animate="fadeInUp">
+                                    <h3 class="text-lg font-bold text-slate-800 mb-4">Languages</h3>
+                                    <div class="flex flex-wrap gap-3">
+                                        <span class="skill-tag px-4 py-2 rounded-lg text-sm font-medium">Python</span>
+                                        <span class="skill-tag px-4 py-2 rounded-lg text-sm font-medium">Java</span>
+                                        <span class="skill-tag px-4 py-2 rounded-lg text-sm font-medium">JavaScript</span>
+                                        <span class="skill-tag px-4 py-2 rounded-lg text-sm font-medium">HTML/CSS</span>
+                                        <span class="skill-tag px-4 py-2 rounded-lg text-sm font-medium">C</span>
+                                        <span class="skill-tag px-4 py-2 rounded-lg text-sm font-medium">OCaml</span>
+                                        <span class="skill-tag px-4 py-2 rounded-lg text-sm font-medium">R</span>
+                                        <span class="skill-tag px-4 py-2 rounded-lg text-sm font-medium">SQL</span>
+                                        <span class="skill-tag px-4 py-2 rounded-lg text-sm font-medium">Solidity</span>
+                                    </div>
+                                </div>
+                                <div class="opacity-0 transform translate-y-6 animation-delay-100" data-animate="fadeInUp">
+                                    <h3 class="text-lg font-bold text-slate-800 mb-4">Frameworks & Libraries</h3>
+                                    <div class="flex flex-wrap gap-3">
+                                        <span class="skill-tag px-4 py-2 rounded-lg text-sm font-medium">React</span>
+                                        <span class="skill-tag px-4 py-2 rounded-lg text-sm font-medium">Node.js</span>
+                                        <span class="skill-tag px-4 py-2 rounded-lg text-sm font-medium">Flask</span>
+                                        <span class="skill-tag px-4 py-2 rounded-lg text-sm font-medium">PyTorch</span>
+                                        <span class="skill-tag px-4 py-2 rounded-lg text-sm font-medium">scikit-learn</span>
+                                        <span class="skill-tag px-4 py-2 rounded-lg text-sm font-medium">Pandas</span>
+                                        <span class="skill-tag px-4 py-2 rounded-lg text-sm font-medium">NumPy</span>
+                                    </div>
+                                </div>
+                                <div class="opacity-0 transform translate-y-6 animation-delay-200" data-animate="fadeInUp">
+                                    <h3 class="text-lg font-bold text-slate-800 mb-4">Tools & Platforms</h3>
+                                    <div class="flex flex-wrap gap-3">
+                                        <span class="skill-tag px-4 py-2 rounded-lg text-sm font-medium">GitHub</span>
+                                        <span class="skill-tag px-4 py-2 rounded-lg text-sm font-medium">Docker</span>
+                                        <span class="skill-tag px-4 py-2 rounded-lg text-sm font-medium">AWS (S3)</span>
+                                        <span class="skill-tag px-4 py-2 rounded-lg text-sm font-medium">Google Sheets Script</span>
+                                        <span class="skill-tag px-4 py-2 rounded-lg text-sm font-medium">MATLAB</span>
+                                        <span class="skill-tag px-4 py-2 rounded-lg text-sm font-medium">n8n</span>
+                                        <span class="skill-tag px-4 py-2 rounded-lg text-sm font-medium">LaTeX</span>
+                                    </div>
+                                </div>
+                                <div class="opacity-0 transform translate-y-6 animation-delay-300" data-animate="fadeInUp">
+                                    <h3 class="text-lg font-bold text-slate-800 mb-4">Quant & Finance</h3>
+                                    <div class="flex flex-wrap gap-3">
+                                        <span class="skill-tag px-4 py-2 rounded-lg text-sm font-medium">Financial Modeling</span>
+                                        <span class="skill-tag px-4 py-2 rounded-lg text-sm font-medium">FX Risk Analysis</span>
+                                        <span class="skill-tag px-4 py-2 rounded-lg text-sm font-medium">Data Mining</span>
+                                        <span class="skill-tag px-4 py-2 rounded-lg text-sm font-medium">Cross-Border Comparisons</span>
+                                        <span class="skill-tag px-4 py-2 rounded-lg text-sm font-medium">Valuation Analysis</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Interests Content -->
+                        <div id="interests-content" class="tab-content hidden">
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div class="space-y-6">
+                                    <div class="border-l-4 border-purple-500 pl-6 py-2 opacity-0 transform translate-y-6" data-animate="slideInLeft">
+                                        <h4 class="font-bold text-lg text-slate-800 mb-2">Soccer</h4>
+                                        <p class="text-slate-600 leading-relaxed">Passionate about playing soccer and following international leagues. The strategic thinking and teamwork involved in the sport mirror many principles I apply in my technical work.</p>
+                                    </div>
+                                    <div class="border-l-4 border-purple-500 pl-6 py-2 opacity-0 transform translate-y-6 animation-delay-150" data-animate="slideInLeft">
+                                        <h4 class="font-bold text-lg text-slate-800 mb-2">Music</h4>
+                                        <p class="text-slate-600 leading-relaxed">I enjoy listening to a wide variety of music genres, which helps me stay creative and focused during long coding sessions and research work.</p>
+                                    </div>
+                                    <div class="border-l-4 border-purple-500 pl-6 py-2 opacity-0 transform translate-y-6 animation-delay-300" data-animate="slideInLeft">
+                                        <h4 class="font-bold text-lg text-slate-800 mb-2">Art History</h4>
+                                        <p class="text-slate-600 leading-relaxed">Fascinated by the evolution of artistic movements and their cultural impact. This interest also connects to my honors thesis research on ancient Armenian art iconography using machine learning.</p>
+                                    </div>
+                                    <div class="border-l-4 border-purple-500 pl-6 py-2 opacity-0 transform translate-y-6 animation-delay-450" data-animate="slideInLeft">
+                                        <h4 class="font-bold text-lg text-slate-800 mb-2">Painting</h4>
+                                        <p class="text-slate-600 leading-relaxed">I express my creativity through painting, exploring different techniques and styles. You can view some of my artwork in my art portfolio.</p>
+                                    </div>
+                                    <div class="mt-6 opacity-0 transform translate-y-6 animation-delay-600" data-animate="fadeInUp">
+                                        <a href="https://hagop.myportfolio.com" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-full font-semibold hover:shadow-lg hover:shadow-purple-500/25 transition-all duration-300 transform hover:-translate-y-1">
+                                            View My Art Portfolio
+                                            <span class="group-hover:translate-x-1 transition-transform duration-200">→</span>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="flex justify-center md:justify-end">
+                                    <div class="relative w-full max-w-sm opacity-0 transform scale-90 animation-delay-300" data-animate="zoomIn">
+                                        <div class="absolute inset-0 bg-gradient-to-r from-purple-400 to-pink-500 rounded-3xl transform rotate-3"></div>
+                                        <div class="relative bg-white rounded-3xl p-2 shadow-xl">
+                                            <img src="images/user.jpg" alt="Hagop Alajajian" class="w-full h-80 object-cover rounded-2xl" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjMyMCIgdmlld0JveD0iMCAwIDMwMCAzMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzMDAiIGhlaWdodD0iMzIwIiBmaWxsPSIjRjNGNEY2Ii8+CjxjaXJjbGUgY3g9IjE1MCIgY3k9IjEyMCIgcj0iNDAiIGZpbGw9IiM5Q0E5QjMiLz4KPHBhdGggZD0iTTEwMCAyNDBDMTAwIDIxNS4yIDEyMS4yIDIwMCAxNTAgMjAwQzE3OC44IDIwMCAyMDAgMjE1LjIgMjAwIDI0MEgyMDBWMjYwSDEwMFYyNDBaIiBmaWxsPSIjOUNBOUIzIi8+Cjx0ZXh0IHg9IjE1MCIgeT0iMjkwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjNkI3Mjg0IiBmb250LXNpemU9IjE0IiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiPkhhZ29wIEFsYWphamlhbjwvdGV4dD4KPC9zdmc+'" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Education Content -->
+                        <div id="education-content" class="tab-content hidden">
+                            <div class="space-y-6">
+                                <div class="opacity-0 transform translate-y-6" data-animate="fadeInUp">
+                                    <div class="flex justify-between items-start">
+                                        <h4 class="font-bold text-xl text-slate-800">Princeton University</h4>
+                                        <span class="text-sm font-medium text-slate-500">Expected May 2027</span>
+                                    </div>
+                                    <p class="text-blue-600 font-semibold">B.S.E. in Computer Science</p>
+                                    <p class="text-slate-600">Minors in Statistics/Machine Learning, Finance, and Entrepreneurship. GPA: 3.6</p>
+                                </div>
+                                <div class="opacity-0 transform translate-y-6 animation-delay-150" data-animate="fadeInUp">
+                                    <div class="flex justify-between items-start">
+                                        <h4 class="font-bold text-xl text-slate-800">High School Achievements</h4>
+                                        <span class="text-sm font-medium text-slate-500"></span>
+                                    </div>
+                                    <p class="text-blue-600 font-semibold">Class Rank: 1</p>
+                                    <p class="text-slate-600">SAT: 1500 (Math: 800), AP Calculus: 5</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Awards Content -->
+                        <div id="awards-content" class="tab-content hidden">
+                            <ul class="space-y-4">
+                                <li class="flex items-center gap-4 opacity-0 transform translate-x-6" data-animate="slideInLeft">
+                                    <i class="fas fa-award w-5 h-5 text-blue-500"></i>
+                                    <div>
+                                        <span class="font-semibold text-slate-800">Princeton 1978 Community Service Award</span>
+                                        <span class="text-sm text-slate-500 ml-2">(2024)</span>
+                                    </div>
+                                </li>
+                                <li class="flex items-center gap-4 opacity-0 transform translate-x-6 animation-delay-100" data-animate="slideInLeft">
+                                    <i class="fas fa-award w-5 h-5 text-blue-500"></i>
+                                    <div>
+                                        <span class="font-semibold text-slate-800">The Engineering Society of Detroit: Outstanding Student of the Year</span>
+                                        <span class="text-sm text-slate-500 ml-2">(2022)</span>
+                                    </div>
+                                </li>
+                                <li class="flex items-center gap-4 opacity-0 transform translate-x-6 animation-delay-200" data-animate="slideInLeft">
+                                    <i class="fas fa-award w-5 h-5 text-blue-500"></i>
+                                    <div>
+                                        <span class="font-semibold text-slate-800">Michigan All-Star Math Team (Top 30)</span>
+                                        <span class="text-sm text-slate-500 ml-2">(2022)</span>
+                                    </div>
+                                </li>
+                                <li class="flex items-center gap-4 opacity-0 transform translate-x-6 animation-delay-300" data-animate="slideInLeft">
+                                    <i class="fas fa-award w-5 h-5 text-blue-500"></i>
+                                    <div>
+                                        <span class="font-semibold text-slate-800">FIRST Robotics Dean's List National Finalist</span>
+                                        <span class="text-sm text-slate-500 ml-2">(2021)</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="relative py-20 px-6 bg-slate-50/50">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-16 opacity-0 transform translate-y-12" data-animate="fadeInUp">
+                    <h2 class="text-4xl md:text-6xl font-bold text-slate-900 mb-6">
+                        Featured Projects
+                    </h2>
+                    <p class="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
+                        A selection of projects where I've applied my skills to solve complex challenges in finance and technology.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-1 lg:grid-cols-3 gap-8">
+                    <div class="glass rounded-2xl p-8 shadow-xl hover:shadow-2xl hover-lift transition-all duration-300 flex flex-col h-full opacity-0 transform translate-y-12" data-animate="fadeInUp">
+                        <div class="flex-grow">
+                            <div class="mb-6">
+                                <div class="w-16 h-16 bg-gradient-to-br from-blue-100 to-purple-100 rounded-xl flex items-center justify-center mb-4">
+                                    <i class="fas fa-bullseye text-2xl text-blue-600"></i>
+                                </div>
+                                <h3 class="text-2xl font-bold text-slate-900">AI-Powered Investment Analysis Platform</h3>
+                                <p class="text-sm font-semibold text-purple-600">Armenco Capital</p>
+                            </div>
+                            <p class="text-slate-600 leading-relaxed mb-6">
+                                Engineered a suite of autonomous AI agents to revolutionize private investment analysis. The system automates web mining, sentiment analysis, and ingestion of financial reports, reducing manual research by approximately 300% and providing real-time investment alerts.
+                            </p>
+                        </div>
+                        <div class="flex flex-wrap gap-2 mt-auto">
+                            <span class="bg-slate-100 text-slate-700 px-3 py-1 rounded-full text-xs font-medium">AI/ML</span>
+                            <span class="bg-slate-100 text-slate-700 px-3 py-1 rounded-full text-xs font-medium">Python</span>
+                            <span class="bg-slate-100 text-slate-700 px-3 py-1 rounded-full text-xs font-medium">Data Mining</span>
+                            <span class="bg-slate-100 text-slate-700 px-3 py-1 rounded-full text-xs font-medium">NLP</span>
+                            <span class="bg-slate-100 text-slate-700 px-3 py-1 rounded-full text-xs font-medium">System Design</span>
+                            <span class="bg-slate-100 text-slate-700 px-3 py-1 rounded-full text-xs font-medium">FinTech</span>
+                        </div>
+                    </div>
+
+                    <div class="glass rounded-2xl p-8 shadow-xl hover:shadow-2xl hover-lift transition-all duration-300 flex flex-col h-full opacity-0 transform translate-y-12 animation-delay-150" data-animate="fadeInUp">
+                        <div class="flex-grow">
+                            <div class="mb-6">
+                                <div class="w-16 h-16 bg-gradient-to-br from-blue-100 to-purple-100 rounded-xl flex items-center justify-center mb-4">
+                                    <i class="fas fa-balance-scale text-2xl text-blue-600"></i>
+                                </div>
+                                <h3 class="text-2xl font-bold text-slate-900">Quantitative Modeling & Enterprise AI Tools</h3>
+                                <p class="text-sm font-semibold text-purple-600">Bancolombia</p>
+                            </div>
+                            <p class="text-slate-600 leading-relaxed mb-6">
+                                Developed a proof-of-concept for a new statistical model incorporating NLP for advanced financial analysis. Additionally, built and deployed an AI-driven code reviewer used by over 6,000 developers, enforcing clean architecture and enhancing code quality bank-wide.
+                            </p>
+                        </div>
+                        <div class="flex flex-wrap gap-2 mt-auto">
+                            <span class="bg-slate-100 text-slate-700 px-3 py-1 rounded-full text-xs font-medium">Quantitative Analysis</span>
+                            <span class="bg-slate-100 text-slate-700 px-3 py-1 rounded-full text-xs font-medium">AI Engineering</span>
+                            <span class="bg-slate-100 text-slate-700 px-3 py-1 rounded-full text-xs font-medium">NLP</span>
+                            <span class="bg-slate-100 text-slate-700 px-3 py-1 rounded-full text-xs font-medium">Enterprise Software</span>
+                            <span class="bg-slate-100 text-slate-700 px-3 py-1 rounded-full text-xs font-medium">DevTools</span>
+                        </div>
+                    </div>
+
+                    <div class="glass rounded-2xl p-8 shadow-xl hover:shadow-2xl hover-lift transition-all duration-300 flex flex-col h-full opacity-0 transform translate-y-12 animation-delay-300" data-animate="fadeInUp">
+                        <div class="flex-grow">
+                            <div class="mb-6">
+                                <div class="w-16 h-16 bg-gradient-to-br from-blue-100 to-purple-100 rounded-xl flex items-center justify-center mb-4">
+                                    <i class="fas fa-lightbulb text-2xl text-blue-600"></i>
+                                </div>
+                                <h3 class="text-2xl font-bold text-slate-900">Behavioral "Friction" Interface</h3>
+                                <p class="text-sm font-semibold text-purple-600">Union Atlantic Ventures</p>
+                            </div>
+                            <p class="text-slate-600 leading-relaxed mb-6">
+                                Designed and built a novel "costly slider" interface for a new venture project. This tool implements cognitive friction in rating systems to mitigate unconscious bias in early-stage investment evaluation, leading to more objective and data-driven decision-making.
+                            </p>
+                        </div>
+                        <div class="flex flex-wrap gap-2 mt-auto">
+                            <span class="bg-slate-100 text-slate-700 px-3 py-1 rounded-full text-xs font-medium">UI/UX Engineering</span>
+                            <span class="bg-slate-100 text-slate-700 px-3 py-1 rounded-full text-xs font-medium">Behavioral Economics</span>
+                            <span class="bg-slate-100 text-slate-700 px-3 py-1 rounded-full text-xs font-medium">JavaScript</span>
+                            <span class="bg-slate-100 text-slate-700 px-3 py-1 rounded-full text-xs font-medium">Product Design</span>
+                            <span class="bg-slate-100 text-slate-700 px-3 py-1 rounded-full text-xs font-medium">VC Tech</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="relative py-20 px-6">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-16 opacity-0 transform translate-y-12" data-animate="fadeInUp">
+                    <h2 class="text-4xl md:text-6xl font-bold text-slate-900 mb-6">
+                        Get In Touch
+                    </h2>
+                    <p class="text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
+                        Let's collaborate on something amazing. I'm always open to discussing new opportunities and interesting projects.
+                    </p>
+                </div>
+
+                <div class="grid lg:grid-cols-2 gap-12">
+                    <!-- Contact Info -->
+                    <div class="space-y-8 opacity-0 transform translate-x-12 animation-delay-200" data-animate="slideInLeft">
+                        <div class="glass rounded-2xl p-8 shadow-lg">
+                            <h3 class="text-2xl font-bold text-slate-900 mb-6">Let's Connect</h3>
+                            
+                            <div class="space-y-4">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-envelope text-blue-600"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-semibold text-slate-900">Email</p>
+                                        <a href="mailto:hagop@princeton.edu" class="text-blue-600 hover:underline">
+                                            hagop@princeton.edu
+                                        </a>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-phone text-green-600"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-semibold text-slate-900">Phone</p>
+                                        <a href="tel:248-308-9509" class="text-green-600 hover:underline">
+                                            248-308-9509
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Social Links -->
+                        <div class="glass rounded-2xl p-8 shadow-lg">
+                            <h4 class="text-xl font-bold text-slate-900 mb-6">Find Me Online</h4>
+                            <div class="flex gap-4">
+                                <a href="https://github.com/hagop-a/" target="_blank" rel="noopener noreferrer" class="group w-12 h-12 bg-slate-100 rounded-full flex items-center justify-center hover:bg-blue-100 transition-all duration-300 hover:scale-110">
+                                    <i class="fab fa-github text-slate-600 group-hover:text-blue-600 transition-colors duration-200"></i>
+                                </a>
+                                <a href="https://www.linkedin.com/in/hagop-alajajian-331181206/" target="_blank" rel="noopener noreferrer" class="group w-12 h-12 bg-slate-100 rounded-full flex items-center justify-center hover:bg-blue-100 transition-all duration-300 hover:scale-110">
+                                    <i class="fab fa-linkedin text-slate-600 group-hover:text-blue-600 transition-colors duration-200"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Resume Download -->
+                        <a href="resume.pdf" download class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-4 rounded-xl font-semibold hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 flex items-center justify-center gap-2">
+                            <i class="fas fa-download"></i>
+                            Download Resume
+                        </a>
+                    </div>
+
+                    <!-- Contact Form -->
+                    <div class="glass rounded-2xl p-8 shadow-lg opacity-0 transform translate-x-12 animation-delay-400" data-animate="slideInRight">
+                        <h3 class="text-2xl font-bold text-slate-900 mb-6">Send a Message</h3>
+                        
+                        <form id="contact-form" class="space-y-6">
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-slate-700 mb-2">
+                                    Your Name
+                                </label>
+                                <input id="name" type="text" required class="form-input w-full px-4 py-3 rounded-lg transition-all duration-300" placeholder="John Doe">
+                            </div>
+                            
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-slate-700 mb-2">
+                                    Your Email
+                                </label>
+                                <input id="email" type="email" required class="form-input w-full px-4 py-3 rounded-lg transition-all duration-300" placeholder="john@example.com">
+                            </div>
+                            
+                            <div>
+                                <label for="message" class="block text-sm font-medium text-slate-700 mb-2">
+                                    Your Message
+                                </label>
+                                <textarea id="message" required rows="6" class="form-input w-full px-4 py-3 rounded-lg transition-all duration-300 resize-none" placeholder="Tell me about your project or just say hello!"></textarea>
+                            </div>
+                            
+                            <button type="submit" id="submit-btn" class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-4 rounded-lg font-semibold hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 flex items-center justify-center gap-2">
+                                <i class="fas fa-paper-plane"></i>
+                                Send Message
+                            </button>
+                            
+                            <div id="form-message" class="hidden text-center p-3 rounded-lg"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="relative z-10 glass border-t border-slate-200/50 py-8 mt-20">
+        <div class="max-w-6xl mx-auto px-6 text-center">
+            <p class="text-slate-600 text-sm">
+                © 2024 Hagop Alajajian. Crafted with precision and care.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Interactive Background Canvas
+        class InteractiveBackground {
+            constructor() {
+                this.canvas = document.getElementById('background-canvas');
+                this.ctx = this.canvas.getContext('2d');
+                this.nodes = [];
+                this.links = [];
+                this.mouse = { x: undefined, y: undefined };
+                
+                this.config = {
+                    nodeCount: 250,
+                    minRadius: 1,
+                    maxRadius: 3.5,
+                    maxSpeed: 0.15,
+                    interactionRadius: 100,
+                    linkRadius: 80,
+                    linkLifetime: 1000,
+                };
+
+                this.init();
+            }
+
+            init() {
+                this.resizeCanvas();
+                this.createNodes();
+                this.bindEvents();
+                this.animate();
+            }
+
+            resizeCanvas() {
+                this.canvas.width = window.innerWidth;
+                this.canvas.height = window.innerHeight;
+            }
+
+            createNodes() {
+                this.nodes = [];
+                for (let i = 0; i < this.config.nodeCount; i++) {
+                    this.nodes.push({
+                        x: Math.random() * this.canvas.width,
+                        y: Math.random() * this.canvas.height,
+                        radius: Math.random() * (this.config.maxRadius - this.config.minRadius) + this.config.minRadius,
+                        vx: (Math.random() - 0.5) * this.config.maxSpeed,
+                        vy: (Math.random() - 0.5) * this.config.maxSpeed,
+                    });
+                }
+            }
+
+            bindEvents() {
+                window.addEventListener('resize', () => {
+                    this.resizeCanvas();
+                    this.createNodes();
+                });
+
+                window.addEventListener('mousemove', (e) => {
+                    this.mouse = { x: e.clientX, y: e.clientY };
+                    this.handleMouseInteraction();
+                });
+            }
+
+            handleMouseInteraction() {
+                const nearbyNodes = this.nodes.filter(node => {
+                    const dx = this.mouse.x - node.x;
+                    const dy = this.mouse.y - node.y;
+                    return Math.sqrt(dx * dx + dy * dy) < this.config.interactionRadius;
+                });
+
+                for (let i = 0; i < nearbyNodes.length; i++) {
+                    for (let j = i + 1; j < nearbyNodes.length; j++) {
+                        const n1 = nearbyNodes[i];
+                        const n2 = nearbyNodes[j];
+                        const dx = n1.x - n2.x;
+                        const dy = n1.y - n2.y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+
+                        if (distance < this.config.linkRadius) {
+                            const existingLink = this.links.find(
+                                link => (link.from === n1 && link.to === n2) || (link.from === n2 && link.to === n1)
+                            );
+                            if (!existingLink) {
+                                const avgRadius = (n1.radius + n2.radius) / 2;
+                                const lineWidth = Math.max(0.5, avgRadius * 0.4);
+                                
+                                this.links.push({ 
+                                    from: n1, 
+                                    to: n2, 
+                                    createdAt: Date.now(),
+                                    lineWidth: lineWidth
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+
+            animate() {
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                const now = Date.now();
+
+                // Update and draw nodes
+                this.nodes.forEach(node => {
+                    // Movement
+                    node.x += node.vx;
+                    node.y += node.vy;
+
+                    // Wall collision
+                    if (node.x - node.radius < 0 || node.x + node.radius > this.canvas.width) node.vx *= -1;
+                    if (node.y - node.radius < 0 || node.y + node.radius > this.canvas.height) node.vy *= -1;
+
+                    // Draw node
+                    this.ctx.beginPath();
+                    this.ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
+                    this.ctx.fillStyle = 'rgba(148, 163, 184, 0.6)';
+                    this.ctx.fill();
+                });
+
+                // Filter and draw links
+                this.links = this.links.filter(link => now - link.createdAt < this.config.linkLifetime);
+                
+                this.links.forEach(link => {
+                    const age = now - link.createdAt;
+                    const opacity = 1 - age / this.config.linkLifetime;
+
+                    this.ctx.beginPath();
+                    this.ctx.moveTo(link.from.x, link.from.y);
+                    this.ctx.lineTo(link.to.x, link.to.y);
+                    this.ctx.strokeStyle = `rgba(99, 102, 241, ${opacity * 0.7})`;
+                    this.ctx.lineWidth = link.lineWidth;
+                    this.ctx.stroke();
+                });
+
+                requestAnimationFrame(() => this.animate());
+            }
+        }
+
+        // Navigation functionality
+        class Navigation {
+            constructor() {
+                this.navbar = document.getElementById('navbar');
+                this.mobileMenuBtn = document.getElementById('mobile-menu-btn');
+                this.mobileMenu = document.getElementById('mobile-menu');
+                this.navLinks = document.querySelectorAll('.nav-link');
+                this.mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+                this.activeSection = 'home';
+                this.isMobileMenuOpen = false;
+
+                this.init();
+            }
+
+            init() {
+                this.bindEvents();
+                this.updateActiveSection();
+                
+                // Show navbar after page load
+                setTimeout(() => {
+                    this.navbar.style.transform = 'translateY(0)';
+                }, 500);
+            }
+
+            bindEvents() {
+                // Mobile menu toggle
+                this.mobileMenuBtn.addEventListener('click', () => {
+                    this.toggleMobileMenu();
+                });
+
+                // Navigation links
+                [...this.navLinks, ...this.mobileNavLinks].forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const targetId = link.getAttribute('href').slice(1);
+                        this.scrollToSection(targetId);
+                        if (this.isMobileMenuOpen) {
+                            this.toggleMobileMenu();
+                        }
+                    });
+                });
+
+                // Scroll spy
+                window.addEventListener('scroll', () => {
+                    this.updateActiveSection();
+                });
+            }
+
+            toggleMobileMenu() {
+                this.isMobileMenuOpen = !this.isMobileMenuOpen;
+                this.mobileMenu.classList.toggle('hidden', !this.isMobileMenuOpen);
+                
+                // Toggle icon
+                const icon = this.mobileMenuBtn.querySelector('i');
+                icon.className = this.isMobileMenuOpen ? 'fas fa-times text-xl' : 'fas fa-bars text-xl';
+            }
+
+            scrollToSection(sectionId) {
+                const element = document.getElementById(sectionId);
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+
+            updateActiveSection() {
+                const sections = ['home', 'about', 'projects', 'contact'];
+                const scrollPosition = window.scrollY + 100;
+
+                for (const section of sections) {
+                    const element = document.getElementById(section);
+                    if (element) {
+                        const { offsetTop, offsetHeight } = element;
+                        if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+                            if (this.activeSection !== section) {
+                                this.activeSection = section;
+                                this.updateNavIndicators();
+                            }
+                            break;
+                        }
+                    }
+                }
+            }
+
+            updateNavIndicators() {
+                this.navLinks.forEach(link => {
+                    const isActive = link.getAttribute('href') === `#${this.activeSection}`;
+                    const indicator = link.querySelector('.nav-indicator');
+                    
+                    if (isActive) {
+                        link.classList.add('text-blue-600');
+                        link.classList.remove('text-slate-700');
+                        indicator.style.transform = 'scaleX(1)';
+                    } else {
+                        link.classList.remove('text-blue-600');
+                        link.classList.add('text-slate-700');
+                        indicator.style.transform = 'scaleX(0)';
+                    }
+                });
+
+                // Update mobile nav
+                this.mobileNavLinks.forEach(link => {
+                    const isActive = link.getAttribute('href') === `#${this.activeSection}`;
+                    
+                    if (isActive) {
+                        link.classList.add('text-blue-600', 'bg-blue-50/50');
+                        link.classList.remove('text-slate-700');
+                    } else {
+                        link.classList.remove('text-blue-600', 'bg-blue-50/50');
+                        link.classList.add('text-slate-700');
+                    }
+                });
+            }
+        }
+
+        // About section tabs
+        class AboutTabs {
+            constructor() {
+                this.tabs = document.querySelectorAll('.about-tab');
+                this.contents = document.querySelectorAll('.tab-content');
+                this.activeTab = 'experience';
+
+                this.init();
+            }
+
+            init() {
+                this.bindEvents();
+            }
+
+            bindEvents() {
+                this.tabs.forEach(tab => {
+                    tab.addEventListener('click', () => {
+                        const tabName = tab.getAttribute('data-tab');
+                        this.switchTab(tabName);
+                    });
+                });
+            }
+
+            switchTab(tabName) {
+                if (this.activeTab === tabName) return;
+
+                // Update active tab
+                this.activeTab = tabName;
+
+                // Update tab buttons
+                this.tabs.forEach(tab => {
+                    const isActive = tab.getAttribute('data-tab') === tabName;
+                    
+                    if (isActive) {
+                        tab.classList.add('bg-blue-600', 'text-white', 'shadow-lg', 'shadow-blue-500/25');
+                        tab.classList.remove('bg-white/50', 'text-slate-700', 'hover:bg-blue-50');
+                    } else {
+                        tab.classList.remove('bg-blue-600', 'text-white', 'shadow-lg', 'shadow-blue-500/25');
+                        tab.classList.add('bg-white/50', 'text-slate-700', 'hover:bg-blue-50');
+                    }
+                });
+
+                // Update content
+                this.contents.forEach(content => {
+                    const isActive = content.id === `${tabName}-content`;
+                    content.classList.toggle('hidden', !isActive);
+                });
+
+                // Trigger animations for new content
+                const activeContent = document.getElementById(`${tabName}-content`);
+                if (activeContent) {
+                    this.animateContent(activeContent);
+                }
+            }
+
+            animateContent(content) {
+                const elements = content.querySelectorAll('[data-animate]');
+                elements.forEach((el, index) => {
+                    el.style.opacity = '0';
+                    el.style.transform = this.getInitialTransform(el.getAttribute('data-animate'));
+                    
+                    setTimeout(() => {
+                        el.style.transition = 'all 0.6s ease';
+                        el.style.opacity = '1';
+                        el.style.transform = 'none';
+                    }, index * 100);
+                });
+            }
+
+            getInitialTransform(animationType) {
+                switch(animationType) {
+                    case 'fadeInUp': return 'translateY(20px)';
+                    case 'slideInLeft': return 'translateX(-20px)';
+                    case 'slideInRight': return 'translateX(20px)';
+                    case 'zoomIn': return 'scale(0.8)';
+                    default: return 'translateY(20px)';
+                }
+            }
+        }
+
+        // Scroll animations
+        class ScrollAnimations {
+            constructor() {
+                this.elements = document.querySelectorAll('[data-animate]');
+                this.init();
+            }
+
+            init() {
+                this.bindEvents();
+                this.checkAnimations();
+            }
+
+            bindEvents() {
+                window.addEventListener('scroll', () => {
+                    this.checkAnimations();
+                });
+            }
+
+            checkAnimations() {
+                this.elements.forEach(element => {
+                    if (this.isInViewport(element) && !element.classList.contains('animated')) {
+                        this.animateElement(element);
+                        element.classList.add('animated');
+                    }
+                });
+            }
+
+            isInViewport(element) {
+                const rect = element.getBoundingClientRect();
+                return rect.top < window.innerHeight * 0.8;
+            }
+
+            animateElement(element) {
+                const animationType = element.getAttribute('data-animate');
+                const delay = this.getAnimationDelay(element);
+
+                setTimeout(() => {
+                    element.style.transition = 'all 0.8s ease';
+                    element.style.opacity = '1';
+                    
+                    switch(animationType) {
+                        case 'fadeIn':
+                            break;
+                        case 'fadeInUp':
+                            element.style.transform = 'translateY(0)';
+                            break;
+                        case 'slideInLeft':
+                            element.style.transform = 'translateX(0)';
+                            break;
+                        case 'slideInRight':
+                            element.style.transform = 'translateX(0)';
+                            break;
+                        case 'zoomIn':
+                            element.style.transform = 'scale(1)';
+                            break;
+                    }
+                }, delay);
+            }
+
+            getAnimationDelay(element) {
+                const classes = element.className.split(' ');
+                const delayClass = classes.find(cls => cls.startsWith('animation-delay-'));
+                return delayClass ? parseInt(delayClass.split('-')[2]) : 0;
+            }
+        }
+
+        // Contact form
+        class ContactForm {
+            constructor() {
+                this.form = document.getElementById('contact-form');
+                this.submitBtn = document.getElementById('submit-btn');
+                this.messageDiv = document.getElementById('form-message');
+                this.isSubmitting = false;
+
+                this.init();
+            }
+
+            init() {
+                this.bindEvents();
+            }
+
+            bindEvents() {
+                this.form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.handleSubmit();
+                });
+            }
+
+            async handleSubmit() {
+                if (this.isSubmitting) return;
+
+                this.isSubmitting = true;
+                this.updateSubmitButton(true);
+
+                try {
+                    // Simulate form submission
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+                    
+                    this.showMessage('Thank you for your message! I\'ll get back to you soon.', 'success');
+                    this.form.reset();
+                } catch (error) {
+                    this.showMessage('Something went wrong. Please try again.', 'error');
+                } finally {
+                    this.isSubmitting = false;
+                    this.updateSubmitButton(false);
+                    
+                    setTimeout(() => {
+                        this.hideMessage();
+                    }, 5000);
+                }
+            }
+
+            updateSubmitButton(isSubmitting) {
+                if (isSubmitting) {
+                    this.submitBtn.innerHTML = `
+                        <div class="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
+                        Sending...
+                    `;
+                    this.submitBtn.disabled = true;
+                } else {
+                    this.submitBtn.innerHTML = `
+                        <i class="fas fa-paper-plane"></i>
+                        Send Message
+                    `;
+                    this.submitBtn.disabled = false;
+                }
+            }
+
+            showMessage(message, type) {
+                this.messageDiv.textContent = message;
+                this.messageDiv.className = `text-center p-3 rounded-lg ${
+                    type === 'success' 
+                        ? 'bg-green-100 text-green-800' 
+                        : 'bg-red-100 text-red-800'
+                }`;
+                this.messageDiv.classList.remove('hidden');
+            }
+
+            hideMessage() {
+                this.messageDiv.classList.add('hidden');
+            }
+        }
+
+        // Global scroll to section function
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            new InteractiveBackground();
+            new Navigation();
+            new AboutTabs();
+            new ScrollAnimations();
+            new ContactForm();
+        });
+
+        // Add CSS animation classes
+        const style = document.createElement('style');
+        style.textContent = `
+            .animation-delay-0 { animation-delay: 0ms; }
+            .animation-delay-100 { animation-delay: 100ms; }
+            .animation-delay-150 { animation-delay: 150ms; }
+            .animation-delay-200 { animation-delay: 200ms; }
+            .animation-delay-300 { animation-delay: 300ms; }
+            .animation-delay-400 { animation-delay: 400ms; }
+            .animation-delay-450 { animation-delay: 450ms; }
+            .animation-delay-500 { animation-delay: 500ms; }
+            .animation-delay-600 { animation-delay: 600ms; }
+            .animation-delay-1500 { animation-delay: 1500ms; }
+            
+            @keyframes spin {
+                to { transform: rotate(360deg); }
+            }
+            
+            .animate-spin {
+                animation: spin 1s linear infinite;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
